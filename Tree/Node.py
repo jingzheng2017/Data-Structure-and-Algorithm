@@ -47,6 +47,41 @@ class Node:
         else:
             return True
 
+    def delete(self, key):
+        """
+        1. if the key has no children (leaf node), just delete it directly
+        2. if the key has one child, let this child replace it
+        3. if the key has 2 children, let the maximum of left tree of it replace it,
+        i.e. the most right node of left child
+        """
+        if self is None:
+            print("root is None")
+            return
+        if key < self.val:
+            if self.left:
+                self.left = self.left.delete(key)
+            else:
+                print("not found the key: {}".format(key))
+        elif key > self.val:
+            if self.right:
+                self.right = self.right.delete(key)
+            else:
+                print("not fount the key: {}".format(key))
+        else:
+            if self.left is None and self.right is None:
+                return None
+            elif self.right is None:
+                return self.left
+            elif self.left is None:
+                return self.right
+            else:
+                node = self.left
+                while node.right:
+                    node = node.right
+                self.val = node.val
+                self.left = self.left.delete(node.val)
+        return self
+
 
 class BST:
     def __init__(self):
@@ -66,15 +101,24 @@ class BST:
     def search_bst(self, key):
         return self.root.search(key)
 
+    def delete_bst(self, key):
+        return self.root.delete(key)
+
+    def print_bst(self):
+        self.root.print_node()
+
 
 if __name__ == '__main__':
-    lst = [10, 8, 15, 7, 9, 13, 4]
+    lst = [10, 8, 15, 6, 9, 13, 4, 7]
     bst = BST()
     bst.create_bst(lst)
-    bst.root.print_node()
-    print(bst.search_bst(4))
-    print(bst.search_bst(9))
-    print(bst.search_bst(14))
+    # bst.root.print_node()
+    # print(bst.search_bst(4))
+    # print(bst.search_bst(9))
+    # print(bst.search_bst(14))
+    # bst.print_bst()
+    bst.delete_bst(13)
+    bst.print_bst()
 
 
 
