@@ -144,24 +144,43 @@ class BST:
         self.root.post_order()
 
 
-if __name__ == '__main__':
-    lst = [10, 8, 15, 6, 9, 13, 4, 7]
-    bst = BST()
-    bst.create_bst(lst)
-    # bst.root.print_node()
-    # print(bst.search_bst(4))
-    # print(bst.search_bst(9))
-    # print(bst.search_bst(14))
-    # bst.print_bst()
-    # bst.delete_bst(13)
-    bst.root.pre_order()
-    bst.root.in_order()
-    bst.root.post_order()
-    print("\n")
-    bst.bst_pre_order()
-    bst.bst_in_order()
-    bst.bst_post_order()
+def check_identical(root1, root2):
+    """
+    if root1 equals to root2 and the left/right tree of root1 equals the left/right tree of root2, they are identical
+    :param root1:
+    :param root2:
+    :return: True or False
+    """
+    if root1 is None and root2 is None:
+        return True
+    elif root1 is None:
+        return False
+    elif root2 is None:
+        return False
+    else:
+        if root1.val != root2.val:
+            return False
+        else:
+            return check_identical(root1.left, root2.left) and check_identical(root1.right, root2.right)
 
+
+def test_check_identical():
+    lst1 = [100, 50, 200, 25, 125, 350]
+    lst2 = [100, 50, 200, 25, 125, 350]
+    lst3 = [100, 50, 201, 25, 125, 350]
+    bst1 = BST()
+    bst1.create_bst(lst1)
+    bst2 = BST()
+    bst2.create_bst(lst2)
+    bst3 = BST()
+    bst3.create_bst(lst3)
+    print(check_identical(bst1.root, bst2.root))
+    print(check_identical(bst1.root, bst3.root))
+
+
+if __name__ == '__main__':
+    test_check_identical()
+    pass
 
 
 
