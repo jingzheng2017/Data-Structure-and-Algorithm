@@ -82,6 +82,33 @@ class Node:
                 self.left = self.left.delete(node.val)
         return self
 
+    def pre_order(self):
+        if self is None:
+            print("root is None")
+        print(self.val, end=" ")
+        if self.left:
+            self.left.pre_order()
+        if self.right:
+            self.right.pre_order()
+
+    def in_order(self):
+        if self is None:
+            print("root is None")
+        if self.left:
+            self.left.in_order()
+        print(self.val, end=" ")
+        if self.right:
+            self.right.in_order()
+
+    def post_order(self):
+        if self is None:
+            print("root is None")
+        if self.left:
+            self.left.post_order()
+        if self.right:
+            self.right.post_order()
+        print(self.val, end=" ")
+
 
 class BST:
     def __init__(self):
@@ -107,6 +134,15 @@ class BST:
     def print_bst(self):
         self.root.print_node()
 
+    def bst_pre_order(self):
+        self.root.pre_order()
+
+    def bst_in_order(self):
+        self.root.in_order()
+
+    def bst_post_order(self):
+        self.root.post_order()
+
 
 if __name__ == '__main__':
     lst = [10, 8, 15, 6, 9, 13, 4, 7]
@@ -117,8 +153,16 @@ if __name__ == '__main__':
     # print(bst.search_bst(9))
     # print(bst.search_bst(14))
     # bst.print_bst()
-    bst.delete_bst(13)
-    bst.print_bst()
+    # bst.delete_bst(13)
+    bst.root.pre_order()
+    bst.root.in_order()
+    bst.root.post_order()
+    print("\n")
+    bst.bst_pre_order()
+    bst.bst_in_order()
+    bst.bst_post_order()
+
+
 
 
 
