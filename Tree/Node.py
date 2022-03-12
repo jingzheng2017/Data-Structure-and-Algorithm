@@ -1,3 +1,4 @@
+from collections import deque
 class Node:
     def __init__(self, val):
         self.val = val
@@ -109,6 +110,24 @@ class Node:
             self.right.post_order()
         print(self.val, end=" ")
 
+    def level_order(self):
+        queue = deque()
+        if self is None:
+            return None
+        queue.append(self)
+        queue.append(None)
+        while len(queue) > 0 and queue[0] is not None:
+            cur = queue.popleft()
+            print("{}".format(cur.val), end=" ")
+            if cur.left:
+                queue.append(cur.left)
+            if cur.right:
+                queue.append(cur.right)
+            if queue[0] is None:
+                queue.popleft()
+                queue.append(None)
+                print("\n")
+
 
 class BST:
     def __init__(self):
@@ -164,6 +183,13 @@ def check_identical(root1, root2):
             return check_identical(root1.left, root2.left) and check_identical(root1.right, root2.right)
 
 
+def test_level_order():
+    lst = [10, 5, 15, 3, 8, 12]
+    bst = BST()
+    bst.create_bst(lst)
+    bst.root.level_order()
+
+
 def test_check_identical():
     lst1 = [100, 50, 200, 25, 125, 350]
     lst2 = [100, 50, 200, 25, 125, 350]
@@ -179,7 +205,7 @@ def test_check_identical():
 
 
 if __name__ == '__main__':
-    test_check_identical()
+    test_level_order()
     pass
 
 
